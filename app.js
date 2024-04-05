@@ -16,6 +16,20 @@ app.use(express.static(path.join(__dirname , 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+
+//database import and connectivity 
+const mongoose = require('mongoose');
+const dbUrl = process.env.DATABASE_URL;
+
+mongoose.connect(dbUrl) 
+    .then( ()=>{
+        console.log("Connection open : DB");
+    })
+    .catch((err) =>{
+        console.log("OH NO ERROR");
+        console.log(err)
+    })
+
 //routes
 app.use('/survey', formDataRoutes);
 app.use('/' , homeDataRoutes);
